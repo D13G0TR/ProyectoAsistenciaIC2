@@ -92,26 +92,30 @@ public class frmLogin extends javax.swing.JFrame {
         } else {
             Trabajador tAux = loginController.loginTrabajador(correo, clave);
             if (tAux != null) {
-                System.out.println("El usuario " + tAux.getNombresTra() + " ha iniciado sesion.");
-                //Cerramos la ventana
-                dispose();
+                if (tAux.getEstadoTra() == true) {
+                    System.out.println("El usuario " + tAux.getNombresTra() + " ha iniciado sesion.");
+                    //Cerramos la ventana
+                    dispose();
 
-                //Si es ADMIN cargamos la vista de ADMIN
-                if (tAux.getCargoTra().getIdCar() == 1) {
-                    //Cargamos el main frame ADMIN
-                    frmAdmin v = new frmAdmin();
-                    v.setSize(1200, 900);
-                    v.setLocationRelativeTo(null);
-                    v.setVisible(true);
+                    //Si es ADMIN cargamos la vista de ADMIN
+                    if (tAux.getCargoTra().getIdCar() == 1) {
+                        //Cargamos el main frame ADMIN
+                        frmAdmin v = new frmAdmin();
+                        v.setSize(1200, 950);
+                        v.setLocationRelativeTo(null);
+                        v.setVisible(true);
+                    } else {
+                        //Cargamos el main frame USER
+                        frmUser v = new frmUser();
+                        v.setSize(1200, 950);
+                        v.setLocationRelativeTo(null);
+                        v.setVisible(true);
+                    }
                 } else {
-                    //Cargamos el main frame USER
-                    frmUser v = new frmUser();
-                    v.setSize(1200, 900);
-                    v.setLocationRelativeTo(null);
-                    v.setVisible(true);
+                    JOptionPane.showMessageDialog(this, "Su cuenta se encuentra deshabilitada. Contacte al Administrador", "Cuenta deshabilitada", JOptionPane.ERROR_MESSAGE);
                 }
             } else {
-                JOptionPane.showMessageDialog(this, "El usuario ingresado no es válido.", "Error de Validación", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Las credenciales ingresadas no son validas.", "Error de Validación", JOptionPane.ERROR_MESSAGE);
             }
         }
     }//GEN-LAST:event_btnLoginActionPerformed

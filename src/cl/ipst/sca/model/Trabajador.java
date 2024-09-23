@@ -18,6 +18,7 @@ public class Trabajador {
     private String claveTra;
     private String departamentoTra;
     private String areaTra;
+    private Boolean estadoTra;
 
     public Trabajador() {
     }
@@ -29,7 +30,7 @@ public class Trabajador {
         return instancia;
     }
 
-    public void inicializar(int rutTra, char dvTra, Turno turnoTra, Cargo cargoTra, String nombresTra, String apellidosTra, String correoTra, String claveTra, String departamentoTra, String areaTra) {
+    public void inicializar(int rutTra, char dvTra, Turno turnoTra, Cargo cargoTra, String nombresTra, String apellidosTra, String correoTra, String claveTra, String departamentoTra, String areaTra, Boolean estadoTra) {
         this.rutTra = rutTra;
         this.dvTra = dvTra;
         this.turnoTra = turnoTra;
@@ -40,6 +41,7 @@ public class Trabajador {
         this.claveTra = claveTra;
         this.departamentoTra = departamentoTra;
         this.areaTra = areaTra;
+        this.estadoTra = estadoTra;
     }
 
     public void cerrarSesion() {
@@ -125,5 +127,13 @@ public class Trabajador {
 
     public void setAreaTra(String areaTra) {
         this.areaTra = areaTra;
+    }
+
+    public Boolean getEstadoTra() {
+        return estadoTra;
+    }
+
+    public void setEstadoTra(Boolean estadoTra) {
+        this.estadoTra = estadoTra;
     }
 }

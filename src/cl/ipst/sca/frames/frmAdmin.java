@@ -2,6 +2,7 @@ package cl.ipst.sca.frames;
 
 import cl.ipst.sca.config.ConexionBBDD;
 import cl.ipst.sca.model.Trabajador;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -30,16 +31,23 @@ public class frmAdmin extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenuItem1 = new javax.swing.JMenuItem();
         miPanel = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         Reportes = new javax.swing.JMenu();
         jmiAtrasos = new javax.swing.JMenuItem();
         jmiAdelantos = new javax.swing.JMenuItem();
         jmiInasistencias = new javax.swing.JMenuItem();
+        GestionUsuarios = new javax.swing.JMenu();
+        jmiAddUser = new javax.swing.JMenuItem();
+        jmiEditUser = new javax.swing.JMenuItem();
+        jmiDelUser = new javax.swing.JMenuItem();
         Ayuda = new javax.swing.JMenu();
         jmiProbarConexion = new javax.swing.JMenuItem();
         jmiAyuda = new javax.swing.JMenuItem();
         jmiCerrarSesion = new javax.swing.JMenu();
+
+        jMenuItem1.setText("jMenuItem1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -81,6 +89,34 @@ public class frmAdmin extends javax.swing.JFrame {
         Reportes.add(jmiInasistencias);
 
         jMenuBar1.add(Reportes);
+
+        GestionUsuarios.setText("Gestión de Trabajadores");
+
+        jmiAddUser.setText("Añadir Trabajador");
+        jmiAddUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiAddUserActionPerformed(evt);
+            }
+        });
+        GestionUsuarios.add(jmiAddUser);
+
+        jmiEditUser.setText("Modificar Trabajador");
+        jmiEditUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiEditUserActionPerformed(evt);
+            }
+        });
+        GestionUsuarios.add(jmiEditUser);
+
+        jmiDelUser.setText("Eliminar Trabajador");
+        jmiDelUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiDelUserActionPerformed(evt);
+            }
+        });
+        GestionUsuarios.add(jmiDelUser);
+
+        jMenuBar1.add(GestionUsuarios);
 
         Ayuda.setText("Ayuda");
 
@@ -195,6 +231,39 @@ public class frmAdmin extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jmiCerrarSesionMouseClicked
 
+    private void jmiAddUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiAddUserActionPerformed
+        frmNuevoUsuario v = null;
+        try {
+            v = new frmNuevoUsuario();
+        } catch (SQLException ex) {
+            Logger.getLogger(frmAdmin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        miPanel.add(v);
+        v.setVisible(true);
+    }//GEN-LAST:event_jmiAddUserActionPerformed
+
+    private void jmiEditUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiEditUserActionPerformed
+        frmEditarUsuario v = null;
+        try {
+            v = new frmEditarUsuario();
+        } catch (SQLException ex) {
+            Logger.getLogger(frmAdmin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        miPanel.add(v);
+        v.setVisible(true);
+    }//GEN-LAST:event_jmiEditUserActionPerformed
+
+    private void jmiDelUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiDelUserActionPerformed
+        frmEliminarUsuario v = null;
+        try {
+            v = new frmEliminarUsuario();
+        } catch (SQLException ex) {
+            Logger.getLogger(frmAdmin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        miPanel.add(v);
+        v.setVisible(true);
+    }//GEN-LAST:event_jmiDelUserActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -243,12 +312,17 @@ public class frmAdmin extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu Ayuda;
+    private javax.swing.JMenu GestionUsuarios;
     private javax.swing.JMenu Reportes;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jmiAddUser;
     private javax.swing.JMenuItem jmiAdelantos;
     private javax.swing.JMenuItem jmiAtrasos;
     private javax.swing.JMenuItem jmiAyuda;
     private javax.swing.JMenu jmiCerrarSesion;
+    private javax.swing.JMenuItem jmiDelUser;
+    private javax.swing.JMenuItem jmiEditUser;
     private javax.swing.JMenuItem jmiInasistencias;
     private javax.swing.JMenuItem jmiProbarConexion;
     private javax.swing.JDesktopPane miPanel;

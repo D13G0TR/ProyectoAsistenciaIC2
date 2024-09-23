@@ -33,6 +33,7 @@ public class LoginController {
         String area;
         String correoBD;
         String claveBD;
+        Boolean estado;
 
         String query = "SELECT"
                 + " t.RUT,"
@@ -42,7 +43,8 @@ public class LoginController {
                 + " t.DEPARTAMENTO,"
                 + " t.AREA,"
                 + " t.CORREO,"
-                + " t.CLAVE, "
+                + " t.CLAVE,"
+                + " t.ESTADO, "
                 + " c.ID AS ID_CARGO,"
                 + " c.CARGO,"
                 + " tu.ID AS ID_TURNO,"
@@ -68,6 +70,7 @@ public class LoginController {
                 area = rs.getString("AREA");
                 correoBD = rs.getString("CORREO");
                 claveBD = rs.getString("CLAVE");
+                estado = rs.getBoolean("ESTADO");
 
                 // Cargo
                 cAux.setIdCar(rs.getInt("ID_CARGO"));
@@ -87,7 +90,7 @@ public class LoginController {
 
                 // Inicializar la instancia única de Trabajador
                 Trabajador trabajador = Trabajador.getInstancia();
-                trabajador.inicializar(rut, dv, tAux, cAux, nombres, apellidos, correoBD, claveBD, departamento, area);
+                trabajador.inicializar(rut, dv, tAux, cAux, nombres, apellidos, correoBD, claveBD, departamento, area, estado);
 
                 return trabajador;
             }
