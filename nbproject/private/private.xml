@@ -3,10 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/diego/OneDrive/Documentos/NetBeansProjects/Probando%20Reportes/src/probando/reportes/ProbandoReportes.java</file>
-            <file>file:/C:/Users/diego/OneDrive/Documentos/NetBeansProjects/Probando%20Reportes/src/Vistas/Asist.java</file>
-            <file>file:/C:/Users/diego/OneDrive/Documentos/NetBeansProjects/Probando%20Reportes/src/Modelos/Conexion.java</file>
-            <file>file:/C:/Users/diego/OneDrive/Documentos/NetBeansProjects/Probando%20Reportes/src/Modelos/GeneradorPDF.java</file>
+            <file>file:/C:/Users/rober/Documents/GitHub/ProyectoAsistenciaIC2/src/cl/ipst/sca/frames/frmMarcarAsistencia.java</file>
+            <file>file:/C:/Users/rober/Documents/GitHub/ProyectoAsistenciaIC2/src/cl/ipst/sca/main/IPST_SCA.java</file>
+            <file>file:/C:/Users/rober/Documents/GitHub/ProyectoAsistenciaIC2/src/cl/ipst/sca/frames/frmAdmin.java</file>
+            <file>file:/C:/Users/rober/Documents/GitHub/ProyectoAsistenciaIC2/src/cl/ipst/sca/frames/frmReporteAtrasos.java</file>
+            <file>file:/C:/Users/rober/Documents/GitHub/ProyectoAsistenciaIC2/src/cl/ipst/sca/frames/frmLogin.java</file>
+            <file>file:/C:/Users/rober/Documents/GitHub/ProyectoAsistenciaIC2/src/cl/ipst/sca/controllers/MarcadorController.java</file>
         </group>
     </open-files>
 </project-private>
