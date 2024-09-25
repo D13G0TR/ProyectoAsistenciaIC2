@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Roberto Vargas Vargas <rvargas@dparica.cl>
+ * @author Roberto Vargas Vargas
  */
 public class frmNuevoUsuario extends javax.swing.JInternalFrame {
 
@@ -298,63 +298,67 @@ public class frmNuevoUsuario extends javax.swing.JInternalFrame {
         String correo = txtCorreo.getText().trim();
         String clave = txtClave.getText().trim();
 
-        String fullRUN = txtRUN.getText().trim() + "-" + txtDV.getText().trim().charAt(0);
-        if (trabajadorController.validarRUT(fullRUN)) {
-            // Manejar posibles excepciones con try-catch
-            try {
-                //id = Integer.parseInt(txtID.getText().trim());
-                run = Integer.parseInt(txtRUN.getText().trim());
-                dv = txtDV.getText().trim().charAt(0);
-                idCargo = Integer.parseInt(cbbCargoID.getSelectedItem().toString());
-                idTurno = Integer.parseInt(cbbTurnoID.getSelectedItem().toString());
-            } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(this, "Error en formato de número", "Error de Validación", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
+        if (txtRUN.getText().trim().equals("") || nombres.equals("") || apellidos.equals("") || correo.equals("") || clave.equals("")) {
+            String fullRUN = txtRUN.getText().trim() + "-" + txtDV.getText().trim().charAt(0);
+            if (trabajadorController.validarRUT(fullRUN)) {
+                // Manejar posibles excepciones con try-catch
+                try {
+                    //id = Integer.parseInt(txtID.getText().trim());
+                    run = Integer.parseInt(txtRUN.getText().trim());
+                    dv = txtDV.getText().trim().charAt(0);
+                    idCargo = Integer.parseInt(cbbCargoID.getSelectedItem().toString());
+                    idTurno = Integer.parseInt(cbbTurnoID.getSelectedItem().toString());
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(this, "Error en formato de número", "Error de Validación", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
 
-            // Realizar validaciones restantes
-            if (nombres.trim().isEmpty() || apellidos.isEmpty() || departamento.isEmpty() || area.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios", "Error de Validación", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
+                // Realizar validaciones restantes
+                if (nombres.trim().isEmpty() || apellidos.isEmpty() || departamento.isEmpty() || area.isEmpty()) {
+                    JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios", "Error de Validación", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
 
-            // Crear objeto Trabajador
-            Trabajador t = new Trabajador();
-            t.setRutTra(run);
-            t.setDvTra(dv);
-            t.setNombresTra(nombres);
-            t.setApellidosTra(apellidos);
-            t.setDepartamentoTra(departamento);
-            t.setAreaTra(area);
-            t.setCorreoTra(correo);
-            t.setClaveTra(clave);
+                // Crear objeto Trabajador
+                Trabajador t = new Trabajador();
+                t.setRutTra(run);
+                t.setDvTra(dv);
+                t.setNombresTra(nombres);
+                t.setApellidosTra(apellidos);
+                t.setDepartamentoTra(departamento);
+                t.setAreaTra(area);
+                t.setCorreoTra(correo);
+                t.setClaveTra(clave);
 
-            Cargo newC = new Cargo();
-            newC.setIdCar(idCargo);
-            t.setCargoTra(newC);
+                Cargo newC = new Cargo();
+                newC.setIdCar(idCargo);
+                t.setCargoTra(newC);
 
-            Turno newT = new Turno();
-            newT.setIdTurno(idTurno);
-            t.setTurnoTra(newT);
+                Turno newT = new Turno();
+                newT.setIdTurno(idTurno);
+                t.setTurnoTra(newT);
 
 //         Intentar agregar el cliente usando el controlador
-            boolean clienteAgregado;
-            try {
-                clienteAgregado = trabajadorController.agregarTrabajador(t);
-            } catch (SQLException ex) {
-                Logger.getLogger(frmNuevoUsuario.class.getName()).log(Level.SEVERE, null, ex);
-                clienteAgregado = false;
-            }
+                boolean clienteAgregado;
+                try {
+                    clienteAgregado = trabajadorController.agregarTrabajador(t);
+                } catch (SQLException ex) {
+                    Logger.getLogger(frmNuevoUsuario.class.getName()).log(Level.SEVERE, null, ex);
+                    clienteAgregado = false;
+                }
 
-            // Mostrar mensaje de éxito o error
-            if (clienteAgregado) {
-                JOptionPane.showMessageDialog(this, "Trabajador agregado correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-                ClearAll();
+                // Mostrar mensaje de éxito o error
+                if (clienteAgregado) {
+                    JOptionPane.showMessageDialog(this, "Trabajador agregado correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                    ClearAll();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Error al agregar el trabajador", "Error", JOptionPane.ERROR_MESSAGE);
+                }
             } else {
-                JOptionPane.showMessageDialog(this, "Error al agregar el trabajador", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "El RUN no es valido", "Error", JOptionPane.ERROR_MESSAGE);
             }
         } else {
-            JOptionPane.showMessageDialog(this, "El RUN ingresado no es valido.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnGuardarCliActionPerformed
 

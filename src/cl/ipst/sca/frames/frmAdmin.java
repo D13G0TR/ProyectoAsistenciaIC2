@@ -11,7 +11,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Roberto Vargas Vargas <rvargas@dparica.cl>
+ * @author Roberto Vargas Vargas
  */
 public class frmAdmin extends javax.swing.JFrame {
 
@@ -161,19 +161,44 @@ public class frmAdmin extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * Maneja la acción del menú para abrir el reporte de atrasos.
+     *
+     * Este método se ejecuta cuando se selecciona la opción "Atrasos" del menú.
+     * Crea una nueva instancia de la ventana de reporte de atrasos y la agrega
+     * al panel.
+     *
+     * @param evt El evento que se genera al seleccionar la opción del menú.
+     */
     private void jmiAtrasosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiAtrasosActionPerformed
         frmReporteAtrasos v = new frmReporteAtrasos();
         miPanel.add(v);
         v.setVisible(true);
     }//GEN-LAST:event_jmiAtrasosActionPerformed
-
+    /**
+     * Maneja la acción del menú para abrir el reporte de salidas anticipadas.
+     *
+     * Este método se ejecuta cuando se selecciona la opción "Adelantos" del
+     * menú. Crea una nueva instancia de la ventana de reporte de salidas
+     * anticipadas y la agrega al panel.
+     *
+     * @param evt El evento que se genera al seleccionar la opción del menú.
+     */
     private void jmiAdelantosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiAdelantosActionPerformed
         frmReporteSalidasAnt v = new frmReporteSalidasAnt();
         miPanel.add(v);
         v.setVisible(true);
     }//GEN-LAST:event_jmiAdelantosActionPerformed
-
+    /**
+     * Maneja la acción del menú para abrir el reporte de inasistencias.
+     *
+     * Este método se ejecuta cuando se selecciona la opción "Inasistencias" del
+     * menú. Crea una nueva instancia de la ventana de reporte de inasistencias
+     * y la agrega al panel. Maneja posibles excepciones al inicializar la
+     * ventana.
+     *
+     * @param evt El evento que se genera al seleccionar la opción del menú.
+     */
     private void jmiInasistenciasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiInasistenciasActionPerformed
         frmReporteInasistencias v = null;
         try {
@@ -184,7 +209,15 @@ public class frmAdmin extends javax.swing.JFrame {
         miPanel.add(v);
         v.setVisible(true);
     }//GEN-LAST:event_jmiInasistenciasActionPerformed
-
+    /**
+     * Maneja la acción del menú Ayuda que muestra información del sistema.
+     *
+     * Este método se ejecuta cuando se selecciona la opción "Ayuda" del menú.
+     * Muestra un cuadro de diálogo con información sobre el sistema y los
+     * programadores que lo desarrollaron.
+     *
+     * @param evt El evento que se genera al seleccionar la opción del menú.
+     */
     private void jmiAyudaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiAyudaActionPerformed
         ImageIcon icono = new ImageIcon(getClass().getResource("/cl/ipst/sca/resources/ipst.png"));
         String mensaje = "<html><div style='text-align: center;'>"
@@ -195,6 +228,7 @@ public class frmAdmin extends javax.swing.JFrame {
                 + "Claudio Trigo <br>"
                 + "Roberto Vargas <br>"
                 + "<br>"
+                + "Docente: Alejandro Vargas<br>"
                 + "Integración de Competencias II<br>"
                 + "Instituto Profesional Santo Tomás - Sede Arica"
                 + "</div></html>";
@@ -202,13 +236,28 @@ public class frmAdmin extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, mensaje,
                 "Sistema de Control de Asistencia", JOptionPane.INFORMATION_MESSAGE, icono);
     }//GEN-LAST:event_jmiAyudaActionPerformed
-
+    /**
+     * Maneja la acción del menú para probar la conexión a la base de datos.
+     *
+     * Este método se ejecuta cuando se selecciona la opción "Probar Conexión"
+     * del menú. Realiza una prueba de conexión a la base de datos.
+     *
+     * @param evt El evento que se genera al seleccionar la opción del menú.
+     */
     private void jmiProbarConexionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiProbarConexionActionPerformed
         //Test de conexión
         ConexionBBDD conexion = new ConexionBBDD();
         conexion.probarConexion();
     }//GEN-LAST:event_jmiProbarConexionActionPerformed
-
+    /**
+     * Maneja la acción del menú para cerrar la sesión del usuario.
+     *
+     * Este método se ejecuta cuando se hace clic en el menú "Cerrar Sesión".
+     * Muestra un cuadro de diálogo de confirmación y, si se confirma, cierra la
+     * sesión del usuario y muestra el formulario de inicio de sesión.
+     *
+     * @param evt El evento que se genera al hacer clic en el menú.
+     */
     private void jmiCerrarSesionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jmiCerrarSesionMouseClicked
         int respuesta = JOptionPane.showConfirmDialog(
                 null, // Componente padre
@@ -230,7 +279,16 @@ public class frmAdmin extends javax.swing.JFrame {
             v.setVisible(true);
         }
     }//GEN-LAST:event_jmiCerrarSesionMouseClicked
-
+    /**
+     * Maneja la acción del menú para agregar un nuevo usuario.
+     *
+     * Este método se ejecuta cuando se selecciona la opción "Agregar Usuario"
+     * del menú. Crea una nueva instancia de la ventana para agregar un usuario
+     * y la agrega al panel. Maneja posibles excepciones al inicializar la
+     * ventana.
+     *
+     * @param evt El evento que se genera al seleccionar la opción del menú.
+     */
     private void jmiAddUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiAddUserActionPerformed
         frmNuevoUsuario v = null;
         try {
@@ -241,7 +299,16 @@ public class frmAdmin extends javax.swing.JFrame {
         miPanel.add(v);
         v.setVisible(true);
     }//GEN-LAST:event_jmiAddUserActionPerformed
-
+    /**
+     * Maneja la acción del menú para editar un usuario existente.
+     *
+     * Este método se ejecuta cuando se selecciona la opción "Editar Usuario"
+     * del menú. Crea una nueva instancia de la ventana para editar un usuario y
+     * la agrega al panel. Maneja posibles excepciones al inicializar la
+     * ventana.
+     *
+     * @param evt El evento que se genera al seleccionar la opción del menú.
+     */
     private void jmiEditUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiEditUserActionPerformed
         frmEditarUsuario v = null;
         try {
@@ -252,7 +319,16 @@ public class frmAdmin extends javax.swing.JFrame {
         miPanel.add(v);
         v.setVisible(true);
     }//GEN-LAST:event_jmiEditUserActionPerformed
-
+    /**
+     * Maneja la acción del menú para eliminar un usuario existente.
+     *
+     * Este método se ejecuta cuando se selecciona la opción "Eliminar Usuario"
+     * del menú. Crea una nueva instancia de la ventana para eliminar un usuario
+     * y la agrega al panel. Maneja posibles excepciones al inicializar la
+     * ventana.
+     *
+     * @param evt El evento que se genera al seleccionar la opción del menú.
+     */
     private void jmiDelUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiDelUserActionPerformed
         frmEliminarUsuario v = null;
         try {

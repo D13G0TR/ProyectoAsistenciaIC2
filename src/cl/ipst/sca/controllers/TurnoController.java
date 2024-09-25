@@ -11,18 +11,39 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * La clase TurnoController es responsable de gestionar las operaciones
+ * relacionadas con los turnos en la base de datos. Esto incluye la búsqueda,
+ * adición, actualización y eliminación de turnos.
+ *
+ * <p>
+ * Utiliza la clase ConexionBBDD para manejar la conexión a la base de
+ * datos.</p>
  *
  * @author rober
+ * @version 1.0
  */
 public class TurnoController {
 
+    /**
+     * Conexión a la base de datos
+     */
     private ConexionBBDD con;
 
+    /**
+     * Constructor de la clase TurnoController. Inicializa la conexión a la base
+     * de datos.
+     */
     public TurnoController() {
         con = new ConexionBBDD();
     }
 
-    // Buscar turno por ID
+    /**
+     * Busca un turno por su identificador.
+     *
+     * @param idTurno el identificador del turno a buscar
+     * @return el turno correspondiente, o null si no se encuentra
+     * @throws SQLException si ocurre un error al acceder a la base de datos
+     */
     public Turno buscarPorId(int idTurno) throws SQLException {
         String query = "SELECT * FROM turnos WHERE ID = ?";
         try (PreparedStatement stmt = con.prepararSentencia(query)) {
@@ -40,7 +61,13 @@ public class TurnoController {
         return null;  // Si no se encuentra el turno
     }
 
-    // Buscar turno por nombre
+    /**
+     * Busca un turno por su descripción.
+     *
+     * @param descripcionTurno la descripción del turno a buscar
+     * @return el turno correspondiente, o null si no se encuentra
+     * @throws SQLException si ocurre un error al acceder a la base de datos
+     */
     public Turno buscarPorNombre(String descripcionTurno) throws SQLException {
         String query = "SELECT * FROM turnos WHERE DESCRIPCION = ?";
         try (PreparedStatement stmt = con.prepararSentencia(query)) {
@@ -58,7 +85,12 @@ public class TurnoController {
         return null;  // Si no se encuentra el turno
     }
 
-    // Agregar turno
+    /**
+     * Agrega un nuevo turno a la base de datos.
+     *
+     * @param turno el turno a agregar
+     * @throws SQLException si ocurre un error al acceder a la base de datos
+     */
     public void agregarTurno(Turno turno) throws SQLException {
         String query = "INSERT INTO turnos (DESCRIPCION, INGRESO, SALIDA) VALUES (?, ?, ?)";
         try (PreparedStatement stmt = con.prepararSentencia(query)) {
@@ -69,7 +101,12 @@ public class TurnoController {
         }
     }
 
-    // Actualizar turno
+    /**
+     * Actualiza un turno existente en la base de datos.
+     *
+     * @param turno el turno con la información actualizada
+     * @throws SQLException si ocurre un error al acceder a la base de datos
+     */
     public void actualizarTurno(Turno turno) throws SQLException {
         String query = "UPDATE turnos SET DESCRIPCION = ?, INGRESO = ?, SALIDA = ? WHERE ID = ?";
         try (PreparedStatement stmt = con.prepararSentencia(query)) {
@@ -81,7 +118,12 @@ public class TurnoController {
         }
     }
 
-    // Eliminar turno
+    /**
+     * Elimina un turno de la base de datos por su identificador.
+     *
+     * @param idTurno el identificador del turno a eliminar
+     * @throws SQLException si ocurre un error al acceder a la base de datos
+     */
     public void eliminarTurno(int idTurno) throws SQLException {
         String query = "DELETE FROM turnos WHERE ID = ?";
         try (PreparedStatement stmt = con.prepararSentencia(query)) {
@@ -90,7 +132,12 @@ public class TurnoController {
         }
     }
 
-    // Listar todos los turnos
+    /**
+     * Lista todos los turnos disponibles en la base de datos.
+     *
+     * @return una lista de todos los turnos
+     * @throws SQLException si ocurre un error al acceder a la base de datos
+     */
     public List<Turno> listarTodosLosTurnos() throws SQLException {
         String query = "SELECT * FROM turnos";
         List<Turno> turnos = new ArrayList<>();

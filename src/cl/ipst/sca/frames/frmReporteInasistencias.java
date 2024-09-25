@@ -22,10 +22,26 @@ public class frmReporteInasistencias extends javax.swing.JInternalFrame {
     MarcadorController marcadorController = new MarcadorController();
     Ausencia aAux = new Ausencia();
 
+    /**
+     * Constructor del formulario que inicializa los componentes y establece las
+     * fechas máximas seleccionables en los jDateChooser.
+     *
+     * @throws ParseException Si hay un error al parsear las fechas.
+     */
     public frmReporteInasistencias() throws ParseException {
         initComponents();
+        jdcFechaInicio.setMaxSelectableDate(new Date());
+        jdcFechaFin.setMaxSelectableDate(new Date());
     }
 
+    /**
+     * Valida que el rango de fechas esté dentro de un año.
+     *
+     * @param fechaInicio La fecha de inicio del rango.
+     * @param fechaFin La fecha de fin del rango.
+     * @return true si la diferencia entre las fechas es menor o igual a un año,
+     * false en caso contrario.
+     */
     public static boolean validarRangoFecha(Date fechaInicio, Date fechaFin) {
         // Convertir Date a LocalDate
         LocalDate inicio = fechaInicio.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
@@ -38,6 +54,13 @@ public class frmReporteInasistencias extends javax.swing.JInternalFrame {
         return diferenciaAnios <= 1;
     }
 
+    /**
+     * Carga los datos de inasistencias en el modelo de tabla para el rango de
+     * fechas dado.
+     *
+     * @param fechaInicio La fecha de inicio del reporte.
+     * @param fechaFin La fecha de fin del reporte.
+     */
     private void cargarDatos(LocalDate fechaInicio, LocalDate fechaFin) {
         DefaultTableModel modelo = new DefaultTableModel() {
             @Override
@@ -195,16 +218,29 @@ public class frmReporteInasistencias extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * Maneja la acción del botón "Cargar", que se ejecuta cuando el usuario
+     * desea cargar los datos de inasistencias dentro del rango de fechas
+     * especificado.
+     *
+     * Este método valida que las fechas de inicio y fin sean seleccionadas y
+     * que el rango no exceda un año. Si las validaciones son exitosas, llama al
+     * método cargarDatos para cargar la información en la tabla.
+     *
+     * @param evt El evento de acción que desencadena este método.
+     */
     private void btnCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargarActionPerformed
         Date fechaI = jdcFechaInicio.getDate();
         Date fechaF = jdcFechaFin.getDate();
-        if (fechaI != null && fechaF != null) {
-            if (validarRangoFecha(fechaI, fechaF)) {
 
+        // Verifica que ambas fechas sean válidas
+        if (fechaI != null && fechaF != null) {
+            // Valida que el rango de fechas no exceda un año
+            if (validarRangoFecha(fechaI, fechaF)) {
                 LocalDate fechaIni = fechaI.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
                 LocalDate fechaFin = fechaF.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 
+                // Carga los datos en la tabla
                 cargarDatos(fechaIni, fechaFin);
             } else {
                 JOptionPane.showMessageDialog(this, "El rango de fecha no puede ser mayor a 1 año.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -212,7 +248,6 @@ public class frmReporteInasistencias extends javax.swing.JInternalFrame {
         } else {
             JOptionPane.showMessageDialog(this, "El rango de fecha ingresado no es válido.", "Error de Validación", JOptionPane.ERROR_MESSAGE);
         }
-
     }//GEN-LAST:event_btnCargarActionPerformed
 
     private void btnExportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarActionPerformed

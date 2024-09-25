@@ -21,6 +21,9 @@ public class frmLogin extends javax.swing.JFrame {
         ClearAll();
     }
 
+    /**
+     * Limpia todos los campos de entrada en el formulario de inicio de sesión.
+     */
     private void ClearAll() {
         txtClave.setText(null);
         txtCorreo.setText(null);
@@ -43,6 +46,7 @@ public class frmLogin extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         txtClave = new javax.swing.JPasswordField();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -79,9 +83,21 @@ public class frmLogin extends javax.swing.JFrame {
         txtClave.setNextFocusableComponent(btnLogin);
         getContentPane().add(txtClave, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 220, 260, -1));
 
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        jLabel4.setText("v1.0");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 40, -1, -1));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * Maneja el evento de acción del botón de inicio de sesión. Valida que los
+     * campos de correo y clave no estén vacíos y intenta autenticar al
+     * trabajador utilizando el controlador de inicio de sesión. Si la
+     * autenticación es exitosa, se verifica el estado del trabajador y se carga
+     * la vista correspondiente (admin o user).
+     *
+     * @param evt el evento de acción que ha provocado la llamada a este método
+     */
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         String correo = txtCorreo.getText().trim();
         String clave = new String(txtClave.getPassword()).trim();
@@ -160,6 +176,7 @@ public class frmLogin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JPasswordField txtClave;

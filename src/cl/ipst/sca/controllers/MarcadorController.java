@@ -21,17 +21,30 @@ import java.util.Map;
 import java.util.Set;
 
 /**
+ * Clase que maneja la lógica de negocio relacionada con las marcaciones de los
+ * trabajadores. Permite agregar marcaciones y generar reportes de atrasos,
+ * salidas anticipadas e inasistencias.
  *
  * @author rober
+ * @version 1.0
  */
 public class MarcadorController {
 
     private ConexionBBDD con;
 
+    /**
+     * Constructor que inicializa la conexión a la base de datos.
+     */
     public MarcadorController() {
         con = new ConexionBBDD();
     }
 
+    /**
+     * Obtiene el nombre del día en español correspondiente al día de la semana.
+     *
+     * @param dia El día de la semana como un objeto DayOfWeek.
+     * @return El nombre del día en español.
+     */
     private String obtenerNombreDia(DayOfWeek dia) {
         return switch (dia) {
             case MONDAY ->
@@ -53,6 +66,13 @@ public class MarcadorController {
         };
     }
 
+    /**
+     * Agrega una nueva marcación a la base de datos.
+     *
+     * @param marcacion El objeto Marcacion a agregar.
+     * @return true si la marcación se agregó correctamente, false en caso
+     * contrario.
+     */
     public boolean agregarMarcacion(Marcacion marcacion) {
         String query = "INSERT INTO marcaciones (RUT, FECHA, HORA, TIPO) "
                 + "VALUES (?, ?, ?, ?)";
@@ -71,6 +91,12 @@ public class MarcadorController {
         }
     }
 
+    /**
+     * Genera un reporte de las marcaciones de los trabajadores que llegaron
+     * después de las 09:30 AM.
+     *
+     * @return Una lista de objetos Marcacion con las entradas tardías.
+     */
     public List<Marcacion> generarReportesAtrasos() {
         List<Marcacion> marcacionesPosteriores = new ArrayList<>();
 
@@ -121,6 +147,12 @@ public class MarcadorController {
         return marcacionesPosteriores;
     }
 
+    /**
+     * Genera un reporte de las marcaciones de los trabajadores que salieron
+     * antes de las 05:30 PM.
+     *
+     * @return Una lista de objetos Marcacion con las salidas anticipadas.
+     */
     public List<Marcacion> generarReporteSalidasAnticipadas() {
         List<Marcacion> marcacionesAnticipadas = new ArrayList<>();
 
@@ -171,6 +203,15 @@ public class MarcadorController {
         return marcacionesAnticipadas;
     }
 
+    /**
+     * Genera un reporte de inasistencias de los trabajadores en un rango de
+     * fechas especificado.
+     *
+     * @param fechaInicio La fecha de inicio del rango.
+     * @param fechaFin La fecha de fin del rango.
+     * @return Una lista de objetos Ausencia con la información de las
+     * inasistencias.
+     */
     public List<Ausencia> generarReporteInasistenciasv2(LocalDate fechaInicio, LocalDate fechaFin) {
         List<Ausencia> inasistencias = new ArrayList<>();
         try {
@@ -236,5 +277,4 @@ public class MarcadorController {
         }
         return inasistencias;
     }
-
 }

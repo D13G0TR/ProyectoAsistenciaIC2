@@ -3,9 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/Users/rober/Documents/GitHub/ProyectoAsistenciaIC2/src/cl/ipst/sca/frames/frmUser.java</file>
+            <file>file:/C:/Users/rober/Documents/GitHub/ProyectoAsistenciaIC2/src/cl/ipst/sca/frames/frmNuevoUsuario.java</file>
+            <file>file:/C:/Users/rober/Documents/GitHub/ProyectoAsistenciaIC2/src/cl/ipst/sca/main/IPST_SCA.java</file>
             <file>file:/C:/Users/rober/Documents/GitHub/ProyectoAsistenciaIC2/src/cl/ipst/sca/frames/frmAdmin.java</file>
-            <file>file:/C:/Users/rober/Documents/GitHub/ProyectoAsistenciaIC2/src/cl/ipst/sca/frames/frmReporteAtrasos.java</file>
-            <file>file:/C:/Users/rober/Documents/GitHub/ProyectoAsistenciaIC2/src/cl/ipst/sca/frames/frmReporteInasistencias.java</file>
+            <file>file:/C:/Users/rober/Documents/GitHub/ProyectoAsistenciaIC2/src/cl/ipst/sca/frames/frmEditarUsuario.java</file>
+            <file>file:/C:/Users/rober/Documents/GitHub/ProyectoAsistenciaIC2/src/cl/ipst/sca/frames/frmEliminarUsuario.java</file>
         </group>
     </open-files>
 </project-private>

@@ -11,17 +11,34 @@ import java.sql.Time;
 import java.time.LocalTime;
 
 /**
+ * Controlador para manejar el proceso de inicio de sesión de los trabajadores.
+ * Este controlador se encarga de verificar las credenciales del trabajador y
+ * devolver la instancia del trabajador autenticado.
  *
  * @author rober
+ * @version 1.0
  */
 public class LoginController {
 
     private ConexionBBDD con;
 
+    /**
+     * Constructor de LoginController que inicializa la conexión a la base de
+     * datos.
+     */
     public LoginController() {
         con = new ConexionBBDD();
     }
 
+    /**
+     * Realiza el inicio de sesión de un trabajador utilizando su correo y
+     * clave.
+     *
+     * @param correo El correo electrónico del trabajador.
+     * @param clave La clave de acceso del trabajador.
+     * @return La instancia de Trabajador si las credenciales son válidas, o
+     * null si las credenciales son incorrectas o hay un error en la consulta.
+     */
     public Trabajador loginTrabajador(String correo, String clave) {
         int rut;
         char dv;

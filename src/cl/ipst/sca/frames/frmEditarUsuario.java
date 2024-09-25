@@ -11,10 +11,12 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 /**
  *
- * @author Roberto Vargas Vargas <rvargas@dparica.cl>
+ * @author Roberto Vargas Vargas 
  */
 public class frmEditarUsuario extends javax.swing.JInternalFrame {
 
@@ -195,6 +197,15 @@ public class frmEditarUsuario extends javax.swing.JInternalFrame {
 
         jLabel1.setText("R.U.N.");
 
+        txtRunBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtRunBuscarKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtRunBuscarKeyTyped(evt);
+            }
+        });
+
         jLabel15.setText("Estado");
 
         cbbEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Activo", "Inactivo" }));
@@ -356,69 +367,73 @@ public class frmEditarUsuario extends javax.swing.JInternalFrame {
         String correo = txtCorreo.getText().trim();
         String clave = txtClave.getText().trim();
 
-        String fullRUN = txtRUN.getText().trim() + "-" + txtDV.getText().trim().charAt(0);
-        if (trabajadorController.validarRUT(fullRUN)) {
-            // Manejar posibles excepciones con try-catch
-            try {
-                //id = Integer.parseInt(txtID.getText().trim());
-                run = Integer.parseInt(txtRUN.getText().trim());
-                dv = txtDV.getText().trim().charAt(0);
-                idCargo = Integer.parseInt(cbbCargoID.getSelectedItem().toString());
-                idTurno = Integer.parseInt(cbbTurnoID.getSelectedItem().toString());                
-            } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(this, "Error en formato de número", "Error de Validación", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
+        if (txtRUN.getText().trim().equals("") || nombres.equals("") || apellidos.equals("") || correo.equals("") || clave.equals("")) {
+            String fullRUN = txtRUN.getText().trim() + "-" + txtDV.getText().trim().charAt(0);
+            if (trabajadorController.validarRUT(fullRUN)) {
+                // Manejar posibles excepciones con try-catch
+                try {
+                    //id = Integer.parseInt(txtID.getText().trim());
+                    run = Integer.parseInt(txtRUN.getText().trim());
+                    dv = txtDV.getText().trim().charAt(0);
+                    idCargo = Integer.parseInt(cbbCargoID.getSelectedItem().toString());
+                    idTurno = Integer.parseInt(cbbTurnoID.getSelectedItem().toString());
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(this, "Error en formato de número", "Error de Validación", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
 
-            // Realizar validaciones restantes
-            if (nombres.trim().isEmpty() || apellidos.isEmpty() || departamento.isEmpty() || area.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios", "Error de Validación", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
+                // Realizar validaciones restantes
+                if (nombres.trim().isEmpty() || apellidos.isEmpty() || departamento.isEmpty() || area.isEmpty()) {
+                    JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios", "Error de Validación", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
 
-            // Crear objeto Trabajador
-            Trabajador t = new Trabajador();
-            t.setRutTra(run);
-            t.setDvTra(dv);
-            t.setNombresTra(nombres);
-            t.setApellidosTra(apellidos);
-            t.setDepartamentoTra(departamento);
-            t.setAreaTra(area);
-            t.setCorreoTra(correo);
-            t.setClaveTra(clave);
+                // Crear objeto Trabajador
+                Trabajador t = new Trabajador();
+                t.setRutTra(run);
+                t.setDvTra(dv);
+                t.setNombresTra(nombres);
+                t.setApellidosTra(apellidos);
+                t.setDepartamentoTra(departamento);
+                t.setAreaTra(area);
+                t.setCorreoTra(correo);
+                t.setClaveTra(clave);
 
-            Cargo newC = new Cargo();
-            newC.setIdCar(idCargo);
-            t.setCargoTra(newC);
+                Cargo newC = new Cargo();
+                newC.setIdCar(idCargo);
+                t.setCargoTra(newC);
 
-            Turno newT = new Turno();
-            newT.setIdTurno(idTurno);
-            t.setTurnoTra(newT);
-            
-            if (estadoInt == 0) {
-                t.setEstadoTra(true);
+                Turno newT = new Turno();
+                newT.setIdTurno(idTurno);
+                t.setTurnoTra(newT);
+
+                if (estadoInt == 0) {
+                    t.setEstadoTra(true);
+                } else {
+                    t.setEstadoTra(false);
+                }
+
+                //Intentar agregar el cliente usando el controlador
+                boolean clienteAgregado;
+                try {
+                    clienteAgregado = trabajadorController.actualizarTrabajador(t);
+                } catch (SQLException ex) {
+                    Logger.getLogger(frmEditarUsuario.class.getName()).log(Level.SEVERE, null, ex);
+                    clienteAgregado = false;
+                }
+
+                // Mostrar mensaje de éxito o error
+                if (clienteAgregado) {
+                    JOptionPane.showMessageDialog(this, "Datos de Trabajador actualizados correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                    ClearAll();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Error al actualizar la información del trabajador", "Error", JOptionPane.ERROR_MESSAGE);
+                }
             } else {
-                t.setEstadoTra(false);
-            }
-
-            //Intentar agregar el cliente usando el controlador
-            boolean clienteAgregado;
-            try {
-                clienteAgregado = trabajadorController.actualizarTrabajador(t);
-            } catch (SQLException ex) {
-                Logger.getLogger(frmEditarUsuario.class.getName()).log(Level.SEVERE, null, ex);
-                clienteAgregado = false;
-            }
-
-            // Mostrar mensaje de éxito o error
-            if (clienteAgregado) {
-                JOptionPane.showMessageDialog(this, "Datos de Trabajador actualizados correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-                ClearAll();
-            } else {
-                JOptionPane.showMessageDialog(this, "Error al actualizar la información del trabajador", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "El RUN ingresado no es valido", "Error", JOptionPane.ERROR_MESSAGE);
             }
         } else {
-            JOptionPane.showMessageDialog(this, "El RUN ingresado no es valido.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnGuardarCliActionPerformed
 
@@ -441,50 +456,65 @@ public class frmEditarUsuario extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_cbbCargoIDItemStateChanged
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        // Obtener el ID de cliente a buscar
-        int runTrabajador;
-        try {
-            runTrabajador = Integer.parseInt(txtRunBuscar.getText().trim());
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Ingrese un valor numérico válido para buscar", "Error de Validación", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        // Realizar la búsqueda del cliente
-        Trabajador tra;
-        try {
-            tra = trabajadorController.buscarPorRut(runTrabajador);
-        } catch (SQLException ex) {
-            Logger.getLogger(frmEditarUsuario.class.getName()).log(Level.SEVERE, null, ex);
-            tra = null;
-        }
-
-        // Mostrar resultados
-        if (tra != null) {
-            txtRUN.setText(String.valueOf(tra.getRutTra()));
-            txtDV.setText(String.valueOf(tra.getDvTra()));
-            txtNombres.setText(tra.getNombresTra());
-            txtApellidos.setText(tra.getApellidosTra());
-            txtDepto.setText(tra.getDepartamentoTra());
-            txtArea.setText(tra.getAreaTra());
-            txtCorreo.setText(tra.getCorreoTra());
-            txtClave.setText(tra.getClaveTra());
-
-            cbbCargoID.setSelectedIndex(tra.getCargoTra().getIdCar() - 1);
-            cbbTurnoID.setSelectedIndex(tra.getTurnoTra().getIdTurno() - 1);
-            
-            if(tra.getEstadoTra()){
-                cbbEstado.setSelectedIndex(0);
-            } else {
-                cbbEstado.setSelectedIndex(1);
+        if (txtRunBuscar.getText().length() > 9) {
+            JOptionPane.showMessageDialog(this, "El RUN ingresado no es valido", "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            int runTrabajador;
+            try {
+                runTrabajador = Integer.parseInt(txtRunBuscar.getText().trim());
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "Ingrese un valor numérico válido para buscar", "Error de Validación", JOptionPane.ERROR_MESSAGE);
+                return;
             }
 
-            JOptionPane.showMessageDialog(this, "Usuario encontrado, datos cargados", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-        } else {
-            // Si no se encontró el cliente, mostrar mensaje de error
-            JOptionPane.showMessageDialog(this, "Usuario no encontrado", "Error", JOptionPane.ERROR_MESSAGE);
+            // Realizar la búsqueda del cliente
+            Trabajador tra;
+            try {
+                tra = trabajadorController.buscarPorRut(runTrabajador);
+            } catch (SQLException ex) {
+                Logger.getLogger(frmEditarUsuario.class.getName()).log(Level.SEVERE, null, ex);
+                tra = null;
+            }
+
+            // Mostrar resultados
+            if (tra != null) {
+                txtRUN.setText(String.valueOf(tra.getRutTra()));
+                txtDV.setText(String.valueOf(tra.getDvTra()));
+                txtNombres.setText(tra.getNombresTra());
+                txtApellidos.setText(tra.getApellidosTra());
+                txtDepto.setText(tra.getDepartamentoTra());
+                txtArea.setText(tra.getAreaTra());
+                txtCorreo.setText(tra.getCorreoTra());
+                txtClave.setText(tra.getClaveTra());
+
+                cbbCargoID.setSelectedIndex(tra.getCargoTra().getIdCar() - 1);
+                cbbTurnoID.setSelectedIndex(tra.getTurnoTra().getIdTurno() - 1);
+
+                if (tra.getEstadoTra()) {
+                    cbbEstado.setSelectedIndex(0);
+                } else {
+                    cbbEstado.setSelectedIndex(1);
+                }
+
+                JOptionPane.showMessageDialog(this, "Trabajador encontrado, datos cargados", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                // Si no se encontró el cliente, mostrar mensaje de error
+                JOptionPane.showMessageDialog(this, "Trabajador no encontrado", "Error", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void txtRunBuscarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRunBuscarKeyTyped
+        char c = evt.getKeyChar();
+        // Permitir solo números y controlar la longitud máxima
+        if (!Character.isDigit(c) || txtRUN.getText().length() >= 9) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtRunBuscarKeyTyped
+
+    private void txtRunBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRunBuscarKeyReleased
+
+    }//GEN-LAST:event_txtRunBuscarKeyReleased
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;

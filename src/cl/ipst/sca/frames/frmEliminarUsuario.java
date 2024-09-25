@@ -7,17 +7,31 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
+ * Clase que representa la interfaz de eliminación de usuarios. Esta clase
+ * permite al administrador buscar y eliminar trabajadores del sistema. Extiende
+ * JInternalFrame para ser utilizada en un entorno de escritorio.
  *
- * @author Roberto Vargas Vargas <rvargas@dparica.cl>
+ * @author Roberto Vargas Vargas
  */
 public class frmEliminarUsuario extends javax.swing.JInternalFrame {
 
     TrabajadorController trabajadorController = new TrabajadorController();
 
+    /**
+     * Constructor de la clase frmEliminarUsuario. Inicializa los componentes de
+     * la interfaz y lanza una excepción SQLException si hay problemas al
+     * acceder a la base de datos.
+     *
+     * @throws SQLException Si ocurre un error al inicializar los componentes.
+     */
     public frmEliminarUsuario() throws SQLException {
         initComponents();
     }
 
+    /**
+     * Método que limpia los campos de búsqueda en la interfaz. Establece el
+     * texto del campo txtRunBuscar como nulo.
+     */
     private void ClearAll() {
         txtRunBuscar.setText(null);
     }
@@ -101,7 +115,17 @@ public class frmEliminarUsuario extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * Maneja la acción de búsqueda y desactivación de un trabajador al hacer
+     * clic en el botón de búsqueda. Este método se activa al presionar el botón
+     * de búsqueda en la interfaz. Realiza las siguientes acciones: 1. Confirma
+     * si el administrador desea deshabilitar el registro del trabajador. 2.
+     * Obtiene el RUN del trabajador a buscar y valida que sea un número. 3.
+     * Invoca el método de desactivación del controlador de trabajadores. 4.
+     * Muestra un mensaje de éxito o error según el resultado de la operación.
+     *
+     * @param evt El evento que representa la acción del botón de búsqueda.
+     */
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         int respuesta = JOptionPane.showConfirmDialog(
                 null, // Componente padre
@@ -124,8 +148,10 @@ public class frmEliminarUsuario extends javax.swing.JInternalFrame {
             Boolean res;
             try {
                 res = trabajadorController.desactivarTrabajador(runTrabajador);
+
             } catch (SQLException ex) {
-                Logger.getLogger(frmEliminarUsuario.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(frmEliminarUsuario.class
+                        .getName()).log(Level.SEVERE, null, ex);
                 res = null;
             }
 

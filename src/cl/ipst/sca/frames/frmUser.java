@@ -7,13 +7,22 @@ import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 
 /**
+ * Clase que representa la ventana principal del usuario.
  *
- * @author Roberto Vargas Vargas <rvargas@dparica.cl>
+ * Esta clase extiende {@link javax.swing.JFrame} y se utiliza para crear la
+ * interfaz gráfica del usuario donde se pueden gestionar las acciones
+ * relacionadas con la asistencia.
+ *
+ * @author Roberto Vargas Vargas
  */
 public class frmUser extends javax.swing.JFrame {
 
     /**
-     * Creates new form frmUser
+     * Crea una nueva instancia de la clase frmUser.
+     *
+     * Este constructor inicializa los componentes de la interfaz y agrega una
+     * instancia de {@link frmMarcarAsistencia} al panel principal de la
+     * ventana.
      */
     public frmUser() {
         initComponents();
@@ -25,6 +34,14 @@ public class frmUser extends javax.swing.JFrame {
         miPanel.moveToFront(v);
     }
 
+    /**
+     * Cierra un JInternalFrame existente con el título especificado.
+     *
+     * Este método recorre todos los JInternalFrames en el panel {@code miPanel}
+     * y cierra el que coincide con el título dado si está visible.
+     *
+     * @param title El título del JInternalFrame a cerrar
+     */
     private void cerrarFrameExistente(String title) {
         // Obtener todos los JInternalFrames en el JDesktopPane
         for (JInternalFrame frame : miPanel.getAllFrames()) {
@@ -128,7 +145,15 @@ public class frmUser extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+/**
+     * Maneja la acción del menú Ayuda que muestra información del sistema.
+     *
+     * Este método se ejecuta cuando se selecciona la opción "Ayuda" del menú.
+     * Muestra un cuadro de diálogo con información sobre el sistema y los
+     * programadores que lo desarrollaron.
+     *
+     * @param evt El evento que se genera al seleccionar la opción del menú.
+     */
     private void jmiAyudaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiAyudaActionPerformed
         ImageIcon icono = new ImageIcon(getClass().getResource("/cl/ipst/sca/resources/ipst.png"));
         String mensaje = "<html><div style='text-align: center;'>"
@@ -139,6 +164,7 @@ public class frmUser extends javax.swing.JFrame {
                 + "Claudio Trigo <br>"
                 + "Roberto Vargas <br>"
                 + "<br>"
+                + "Docente: Alejandro Vargas<br>"
                 + "Integración de Competencias II<br>"
                 + "Instituto Profesional Santo Tomás - Sede Arica"
                 + "</div></html>";
@@ -146,13 +172,27 @@ public class frmUser extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, mensaje,
                 "Sistema de Control de Asistencia", JOptionPane.INFORMATION_MESSAGE, icono);
     }//GEN-LAST:event_jmiAyudaActionPerformed
-
+    /**
+     * Maneja la acción del menú para probar la conexión a la base de datos.
+     *
+     * Este método se ejecuta cuando se selecciona la opción "Probar Conexión"
+     * del menú. Realiza una prueba de conexión a la base de datos.
+     *
+     * @param evt El evento que se genera al seleccionar la opción del menú.
+     */
     private void jmiProbarConexionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiProbarConexionActionPerformed
         //Test de conexión
         ConexionBBDD conexion = new ConexionBBDD();
         conexion.probarConexion();
     }//GEN-LAST:event_jmiProbarConexionActionPerformed
-
+    /**
+     * Maneja la acción del menú para marcar asistencia.
+     *
+     * Este método cierra cualquier frame existente con el título "Marcador" y
+     * abre un nuevo frame para marcar la asistencia.
+     *
+     * @param evt El evento que se genera al seleccionar la opción del menú.
+     */
     private void jmiMarcarAsisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiMarcarAsisActionPerformed
         cerrarFrameExistente("Marcador");
         frmMarcarAsistencia v = new frmMarcarAsistencia();
@@ -160,7 +200,15 @@ public class frmUser extends javax.swing.JFrame {
         miPanel.add(v);
         v.setVisible(true);
     }//GEN-LAST:event_jmiMarcarAsisActionPerformed
-
+    /**
+     * Maneja la acción de cerrar sesión del usuario.
+     *
+     * Este método se ejecuta cuando se hace clic en el menú "Cerrar Sesión".
+     * Muestra un cuadro de diálogo de confirmación y, si se confirma, cierra la
+     * sesión del usuario y muestra el formulario de inicio de sesión.
+     *
+     * @param evt El evento que se genera al hacer clic en el menú.
+     */
     private void jmiLogOutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jmiLogOutMouseClicked
         int respuesta = JOptionPane.showConfirmDialog(
                 null, // Componente padre
@@ -172,7 +220,7 @@ public class frmUser extends javax.swing.JFrame {
         if (respuesta == JOptionPane.YES_OPTION) {
             //Cerramos la ventana
             dispose();
-            
+
             //Cerramos la sesión SINGLETON
             Trabajador.getInstancia().cerrarSesion();
 

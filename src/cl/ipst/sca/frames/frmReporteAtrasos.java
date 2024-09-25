@@ -9,6 +9,9 @@ import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
 /**
+ * Clase que representa la interfaz de usuario para reportes de atrasos. Esta
+ * clase extiende de JInternalFrame y contiene los componentes y métodos
+ * necesarios para mostrar un reporte de trabajadores que han llegado tarde.
  *
  * @author rober
  */
@@ -17,10 +20,29 @@ public class frmReporteAtrasos extends javax.swing.JInternalFrame {
     MarcadorController marcadorController = new MarcadorController();
     Marcacion mAux = new Marcacion();
 
+    /**
+     * Constructor de la clase frmReporteAtrasos. Inicializa los componentes de
+     * la interfaz.
+     */
     public frmReporteAtrasos() {
         initComponents();
     }
 
+    /**
+     * Carga los datos de atrasos en la tabla de reportes. Este método obtiene
+     * la lista de marcaciones de los trabajadores desde el controlador y la
+     * muestra en un modelo de tabla. Los atrasos se calculan comparando la hora
+     * de ingreso establecida (09:30) con la hora de entrada de cada trabajador.
+     *
+     * El método realiza las siguientes acciones: 1. Define la hora de ingreso
+     * (09:30). 2. Crea un modelo de tabla no editable para mostrar los datos.
+     * 3. Obtiene una lista de marcaciones de atrasos mediante el método
+     * generarReportesAtrasos(). 4. Itera sobre la lista de marcaciones, calcula
+     * el tiempo de atraso y llena el modelo de tabla con la información
+     * correspondiente (RUN, nombres, apellidos, fecha, hora de ingreso, tiempo
+     * de atraso). 5. Establece el modelo en el componente de tabla
+     * (jtListaAtrasos).
+     */
     private void cargarDatos() {
         LocalTime horaIngreso = LocalTime.of(9, 30);
         DefaultTableModel modelo = new DefaultTableModel() {
@@ -166,7 +188,14 @@ public class frmReporteAtrasos extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * Método que se ejecuta al hacer clic en el botón "Listar". Este método
+     * invoca el método cargarDatos() para cargar y mostrar en la tabla los
+     * registros de atrasos de los trabajadores.
+     *
+     * @param evt El evento de acción que desencadena la ejecución de este
+     * método.
+     */
     private void btnListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarActionPerformed
         cargarDatos();
     }//GEN-LAST:event_btnListarActionPerformed

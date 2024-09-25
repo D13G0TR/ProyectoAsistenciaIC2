@@ -13,6 +13,8 @@ import java.util.Locale;
 import javax.swing.JOptionPane;
 
 /**
+ * Ventana interna para marcar la asistencia de los trabajadores. Muestra la
+ * fecha y hora actual, y permite a los trabajadores registrar su asistencia.
  *
  * @author rober
  */
@@ -21,7 +23,8 @@ public class frmMarcarAsistencia extends javax.swing.JInternalFrame {
     MarcadorController marcadorController = new MarcadorController();
 
     /**
-     * Creates new form frmMarcarAsistencia
+     * Crea una nueva instancia de frmMarcarAsistencia. Inicializa la interfaz y
+     * configura la fecha y hora actuales.
      */
     public frmMarcarAsistencia() {
         initComponents();
@@ -29,6 +32,10 @@ public class frmMarcarAsistencia extends javax.swing.JInternalFrame {
         horaActual();
     }
 
+    /**
+     * Actualiza el JLabel lblReloj con la hora actual en formato "HH:mm:ss".
+     * Ejecuta un hilo que actualiza la hora cada 500 milisegundos.
+     */
     private void horaActual() {
         DateTimeFormatter formateador = DateTimeFormatter.ofPattern("HH:mm:ss");
         Runnable runnable = new Runnable() {
@@ -39,7 +46,7 @@ public class frmMarcarAsistencia extends javax.swing.JInternalFrame {
                         Thread.sleep(500);
                         lblReloj.setText(formateador.format(LocalDateTime.now()));
                     } catch (InterruptedException e) {
-                        System.out.println("error en reloj");
+                        System.out.println("Error en el reloj");
                         e.printStackTrace();
                     }
                 }
@@ -49,10 +56,14 @@ public class frmMarcarAsistencia extends javax.swing.JInternalFrame {
         hilo.start();
     }
 
+    /**
+     * Muestra la fecha actual en el JLabel lblFecha en formato "EEEE, dd 'de'
+     * MMMM 'del' yyyy".
+     */
     private void fechaActual() {
-        Date fecha = new Date(); //fecha y hora actual
+        Date fecha = new Date(); // Fecha y hora actual
         SimpleDateFormat formatoFecha = new SimpleDateFormat("EEEE, dd 'de' MMMM 'del' yyyy", Locale.forLanguageTag("es-ES"));
-        lblFecha.setText(formatoFecha.format(fecha)); //setear la representacion en cadena de la fecha  
+        lblFecha.setText(formatoFecha.format(fecha)); // Setear la representación en cadena de la fecha  
     }
 
     /**
@@ -117,7 +128,14 @@ public class frmMarcarAsistencia extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * Método que se ejecuta al presionar el botón de entrada. Muestra un cuadro
+     * de confirmación para verificar si el usuario desea marcar su entrada. Si
+     * se confirma, registra la marcación de entrada en la base de datos y
+     * muestra un mensaje con los detalles.
+     *
+     * @param evt Evento que representa la acción de presionar el botón.
+     */
     private void btnEntradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntradaActionPerformed
         int respuesta = JOptionPane.showConfirmDialog(
                 null,
@@ -164,7 +182,14 @@ public class frmMarcarAsistencia extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "No se ha guardado ningún registro.", "Marcación cancelada", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnEntradaActionPerformed
-
+    /**
+     * Método que se ejecuta al presionar el botón de salida. Muestra un cuadro
+     * de confirmación para verificar si el usuario desea marcar su salida. Si
+     * se confirma, registra la marcación de salida en la base de datos y
+     * muestra un mensaje con los detalles.
+     *
+     * @param evt Evento que representa la acción de presionar el botón.
+     */
     private void btnSalidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalidaActionPerformed
         int respuesta = JOptionPane.showConfirmDialog(
                 null, // Componente padre

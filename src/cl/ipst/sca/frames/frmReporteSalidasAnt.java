@@ -21,14 +21,25 @@ public class frmReporteSalidasAnt extends javax.swing.JInternalFrame {
         initComponents();
     }
 
+    /**
+     * Carga los datos de salidas anticipadas de trabajadores y los muestra en
+     * la tabla.
+     *
+     * Este método obtiene una lista de marcaciones de salidas anticipadas a
+     * través del controlador de marcaciones y llena el modelo de la tabla con
+     * la información relevante. Se calcula el tiempo anticipado respecto a una
+     * hora de salida establecida (17:30).
+     */
     private void cargarDatos() {
-        LocalTime horaSalida = LocalTime.of(17, 30);
+        LocalTime horaSalida = LocalTime.of(17, 30); // Hora de salida estándar
         DefaultTableModel modelo = new DefaultTableModel() {
             @Override
             public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return false;
+                return false; // La tabla no es editable
             }
         };
+
+        // Definición de las columnas de la tabla
         modelo.addColumn("RUN");
         modelo.addColumn("Nombres");
         modelo.addColumn("Apellidos");
@@ -36,13 +47,15 @@ public class frmReporteSalidasAnt extends javax.swing.JInternalFrame {
         modelo.addColumn("Hora Salida");
         modelo.addColumn("Tiempo Anticipado");
 
+        // Obtiene la lista de marcaciones de salidas anticipadas
         List<Marcacion> listaBase = marcadorController.generarReporteSalidasAnticipadas();
         Object[] datos = new Object[6];
 
+        // Itera sobre la lista de marcaciones
         for (int i = 0; i < listaBase.size(); i++) {
-
             mAux = listaBase.get(i);
 
+            // Llena el array de datos con la información de la marcación
             datos[0] = mAux.getTrabMarca().getRutTra() + "-" + mAux.getTrabMarca().getDvTra();
             datos[1] = mAux.getTrabMarca().getNombresTra();
             datos[2] = mAux.getTrabMarca().getApellidosTra();
@@ -52,19 +65,22 @@ public class frmReporteSalidasAnt extends javax.swing.JInternalFrame {
 
             datos[4] = mAux.getHora();
 
-            Duration atraso = Duration.between(mAux.getHora(), horaSalida);
+            // Calcula el tiempo anticipado respecto a la hora de salida estándar
+            Duration anticipado = Duration.between(mAux.getHora(), horaSalida);
 
-            // Obtener horas y minutos de atraso
-            long horasAt = atraso.toHours();
-            long minAt = atraso.toMinutesPart();
-            long segAt = atraso.toSecondsPart();
+            // Obtener horas, minutos y segundos de anticipación
+            long horasAnt = anticipado.toHours();
+            long minAnt = anticipado.toMinutesPart();
+            long segAnt = anticipado.toSecondsPart();
 
-            datos[5] = horasAt + ":" + minAt + ":" + segAt;
+            datos[5] = horasAnt + ":" + minAnt + ":" + segAnt;
 
+            // Agrega la fila de datos al modelo de la tabla
             modelo.addRow(datos);
-
-            jtListaAtrasos.setModel(modelo);
         }
+
+        // Establece el modelo a la tabla para mostrar los datos
+        jtListaAtrasos.setModel(modelo);
     }
 
     /**
@@ -166,7 +182,16 @@ public class frmReporteSalidasAnt extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * Maneja el evento de acción del botón "Listar".
+     *
+     * Este método se ejecuta cuando el usuario hace clic en el botón para
+     * listar los datos de salidas anticipadas de los trabajadores. Llama al
+     * método {@link #cargarDatos()} para cargar y mostrar la información en la
+     * tabla.
+     *
+     * @param evt El evento de acción que contiene la información del evento
+     */
     private void btnListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarActionPerformed
         cargarDatos();
     }//GEN-LAST:event_btnListarActionPerformed
